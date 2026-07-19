@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Raynet Renewables | Industrial Energy Transformation</title>
+    <style>
+        :root {
+            --primary: #00b0ff;
+            --accent: #00e676;
+            --dark-bg: #0a1118;
+            --card-bg: #111c24;
+            --text-light: #f4f6f8;
+            --text-muted: #8a99ad;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', system-ui, -apple-system, sans-serif; }
+        html { scroll-behavior: smooth; }
+        body { background-color: var(--dark-bg); color: var(--text-light); line-height: 1.6; }
+
+        /* Navigation */
+        nav { display: flex; justify-content: space-between; align-items: center; padding: 1.5rem 8%; background: rgba(10, 17, 24, 0.9); position: fixed; width: 100%; top: 0; backdrop-filter: blur(12px); z-index: 1000; border-bottom: 1px solid rgba(255,255,255,0.05); }
+        nav .logo { font-weight: 800; font-size: 1.6rem; color: #fff; letter-spacing: -0.5px; display: flex; align-items: center; gap: 8px; }
+        nav .logo span { color: var(--accent); }
+        nav ul { display: flex; list-style: none; gap: 2.5rem; }
+        nav a { text-decoration: none; color: var(--text-muted); font-weight: 500; font-size: 0.95rem; transition: 0.3s; }
+        nav a:hover, nav a.active { color: #fff; }
+
+        /* Sections Structure */
+        section { padding: 120px 8% 80px 8%; min-height: 100vh; display: flex; flex-direction: column; justify-content: center; }
+        .section-title { font-size: 2.5rem; font-weight: 800; margin-bottom: 1rem; text-align: center; letter-spacing: -1px; }
+        .section-subtitle { text-align: center; color: var(--text-muted); max-width: 600px; margin: 0 auto 3.5rem auto; font-size: 1.1rem; }
+
+        /* Hero */
+        #home { background: radial-gradient(circle at 80% 20%, rgba(0, 230, 118, 0.15) 0%, transparent 50%), radial-gradient(circle at 10% 80%, rgba(0, 176, 255, 0.1) 0%, transparent 50%); }
+        .hero-layout { display: flex; align-items: center; justify-content: space-between; gap: 4rem; }
+        .hero-container { max-width: 650px; }
+        .hero-graphic { flex: 1; display: flex; justify-content: center; min-width: 300px; }
+        .badge { display: inline-block; padding: 6px 14px; background: rgba(0, 230, 118, 0.1); border: 1px solid rgba(0, 230, 118, 0.2); color: var(--accent); border-radius: 30px; font-size: 0.85rem; font-weight: 600; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 1.5rem; }
+        h1 { font-size: 3.8rem; font-weight: 800; line-height: 1.1; letter-spacing: -2px; margin-bottom: 1.5rem; background: linear-gradient(to right, #fff, var(--text-muted)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+        .hero-p { font-size: 1.25rem; color: var(--text-muted); max-width: 600px; margin-bottom: 2.5rem; }
+        .cta-group { display: flex; gap: 1rem; align-items: center; }
+        .btn { display: inline-block; padding: 14px 32px; background: var(--accent); color: #0a1118; text-decoration: none; border-radius: 6px; font-weight: 600; transition: all 0.3s ease; border: 2px solid var(--accent); }
+        .btn:hover { background: transparent; color: var(--accent); transform: translateY(-2px); box-shadow: 0 10px 20px rgba(0, 230, 118, 0.15); }
+        .btn-secondary { background: transparent; color: #fff; border-color: rgba(255,255,255,0.15); }
+        .btn-secondary:hover { border-color: #fff; background: rgba(255,255,255,0.02); }
+
+        /* Services Cards grid */
+        .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 2rem; }
+        .card { background: var(--card-bg); border: 1px solid rgba(255,255,255,0.03); padding: 2.5rem; border-radius: 12px; transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1); position: relative; overflow: hidden; }
+        .card::before { content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 3px; background: linear-gradient(90deg, var(--primary), var(--accent)); opacity: 0; transition: 0.3s; }
+        .card:hover { transform: translateY(-5px); border-color: rgba(255,255,255,0.08); background: #15222e; }
+        .card:hover::before { opacity: 1; }
+        .card-icon { margin-bottom: 1.5rem; display: block; }
+        .card h3 { font-size: 1.4rem; margin-bottom: 1rem; font-weight: 700; }
+        .card p { color: var(--text-muted); font-size: 0.95rem; }
+
+        /* Interactive Cost Matrix Table */
+        .table-container { background: var(--card-bg); border-radius: 12px; overflow: hidden; border: 1px solid rgba(255,255,255,0.05); margin-top: 4rem; }
+        table { width: 100%; border-collapse: collapse; text-align: left; font-size: 0.95rem; }
+        th, td { padding: 1.25rem 1.5rem; border-bottom: 1px solid rgba(255,255,255,0.05); }
+        th { background: rgba(255,255,255,0.02); font-weight: 600; color: #fff; }
+        tr:last-child td { border: none; }
+        .highlight-text { color: var(--accent); font-weight: 600; }
+
+        /* Timeline Chart */
+        .timeline { position: relative; max-width: 800px; margin: 0 auto; padding: 2rem 0; }
+        .timeline::after { content: ''; position: absolute; width: 2px; background: rgba(255,255,255,0.05); top: 0; bottom: 0; left: 50%; margin-left: -1px; }
+        .timeline-container { padding: 10px 40px; position: relative; background: inherit; width: 50%; }
+        .timeline-container::after { content: ''; position: absolute; width: 12px; height: 12px; right: -7px; background-color: var(--dark-bg); border: 3px solid var(--primary); top: 15px; border-radius: 50%; z-index: 1; transition: 0.3s; }
+        .left { left: 0; } .right { left: 50%; }
+        .right::after { left: -5px; border-color: var(--accent); }
+        .timeline-content { padding: 1.5rem; background: var(--card-bg); position: relative; border-radius: 8px; border: 1px solid rgba(255,255,255,0.03); }
+        .timeline-container:hover::after { background-color: #fff; transform: scale(1.3); }
+        .time-tag { font-weight: 800; color: #fff; font-size: 1.2rem; margin-bottom: 0.25rem; display: block; }
+        .left .time-tag { color: var(--primary); } .right .time-tag { color: var(--accent); }
+
+        /* Contact Section */
+        #contact { background: radial-gradient(circle at 50% 110%, rgba(0, 230, 118, 0.1) 0%, transparent 60%); text-align: center; }
+        .contact-box { max-width: 500px; margin: 0 auto; background: var(--card-bg); padding: 3rem; border-radius: 16px; border: 1px solid rgba(255,255,255,0.05); }
+        .phone-link { font-size: 2rem; color: #fff; text-decoration: none; font-weight: 700; display: block; margin: 1rem 0; transition: 0.3s; }
+        .phone-link:hover { color: var(--accent); }
+        .email-link { color: var(--text-muted); text-decoration: none; font-size: 1.1rem; }
+        .email-link:hover { color: var(--primary); text-decoration: underline; }
+
+        /* Responsive Layouts */
+        @media (max-width: 968px) {
+            .hero-layout { flex-direction: column; text-align: center; gap: 2rem; }
+            .hero-container { max-width: 100%; }
+            .cta-group { justify-content: center; }
+            h1 { font-size: 2.8rem; }
+        }
+        @media (max-width: 768px) {
+            nav ul { display: none; }
+            section { padding: 100px 5% 60px 5%; }
+            .timeline::after { left: 31px; }
+            .timeline-container { width: 100%; padding-left: 70px; padding-right: 25px; }
+            .timeline-container::after { left: 25px; }
+            .right { left: 0; }
+            th, td { padding: 0.75rem; font-size: 0.85rem; }
+        }
+    </style>
+</head>
+<body>
+
+    <nav>
+        <div class="logo">
+            <!-- Brand Logo SVG -->
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M13 2L3 14H12L11 22L21 10H12L13 2Z" fill="#00e676" stroke="#00e676" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+            Raynet<span>.</span>
+        </div>
+        <ul>
+            <li><a href="#home">Home</a></li>
+            <li><a href="#services">Services</a></li>
+            <li><a href="#tariffs">Tariff Trajectory</a></li>
+            <li><a href="#contact">Contact</a></li>
+        </ul>
+    </nav>
+
+    <section id="home">
+        <div class="hero-layout">
+            <div class="hero-container">
+                <span class="badge">Industrial Energy Transition</span>
+                <h1>Slash Operating Costs. Protect the Ecosystem.</h1>
+                <p class="hero-p">We engineer data-driven pathways for industrial facilities to cut volatile state grid dependency, reduce electrical waste, and cleanly power operations on-site.</p>
+                <div class="cta-group">
+                    <a href="#contact" class="btn">Request Energy Audit</a>
+                    <a href="#tariffs" class="btn btn-secondary">Analyze Tariff Risks</a>
+                </div>
+            </div>
+            <div class="hero-graphic">
+                <!-- Premium Eco-Infrastructure Central Graphic (Factory + Microgrid Concept) -->
+                <svg width="380" height="320" viewBox="0 0 400 340" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <defs>
+                        <linearGradient id="grad1" x1="0%" y1="0%" x2="100%" y2="100%">
+                            <stop offset="0%" stop-color="#00b0ff" stop-opacity="0.3"/>
+                            <stop offset="100%" stop-color="#00e676" stop-opacity="0.05"/>
+                        </linearGradient>
+                    </defs>
+                    <!-- Background aura grid -->
+                    <circle cx="200" cy="170" r="130" fill="url(#grad1)" />
+                    <!-- Renewable Solar Elements -->
+                    <rect x="230" y="80" width="80" height="45" rx="4" transform="rotate(-15 230 80)" fill="#111c24" stroke="#00b0ff" stroke-width="2"/>
+                    <line x1="255" y1="75" x2="270" y2="115" stroke="#00b0ff" stroke-width="1.5"/>
+                    <line x1="280" y1="68" x2="295" y2="108" stroke="#00b0ff" stroke-width="1.5"/>
+                    <line x1="240" y1="92" x2="305" y2="75" stroke="#00b0ff" stroke-width="1.5"/>
+                    <!-- Industrial Architecture Silhouette -->
+                    <path d="M60 260 L60 180 L110 210 L110 180 L160 210 L160 160 L230 160 L230 260 Z" fill="#15222e" stroke="#8a99ad" stroke-width="2" stroke-linejoin="round"/>
+                    <rect x="180" y="190" width="25" height="40" fill="#0a1118" stroke="#8a99ad"/>
+                    <!-- Clean Energy Network Leaf -->
+                    <path d="M190 100 C150 100 130 140 130 170 C160 170 200 150 200 110 Z" fill="none" stroke="#00e676" stroke-width="3.5" stroke-linecap="round"/>
+                    <path d="M130 170 L170 130" stroke="#00e676" stroke-width="2"/>
+                    <!-- Efficiency Pulse Line -->
+                    <path d="M40 280 Q 120 230, 200 280 T 360 280" stroke="rgba(255,255,255,0.1)" stroke-width="3" fill="none"/>
+                    <path d="M40 280 Q 120 230, 200 280 T 360 280" stroke="#00e676" stroke-width="3" stroke-dasharray="15 120" fill="none"/>
+                </svg>
+            </div>
+        </div>
+    </section>
+
+    <section id="services">
+        <h2 class="section-title">Engineered Capabilities</h2>
+        <p class="section-subtitle">Dual-impact configurations engineered to secure both your balance sheet and your ESG regulatory standard ratings.</p>
+        
+        <div class="grid">
+            <div class="card">
+                <!-- Icon: Industrial Audit -->
+                <svg class="card-icon" width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="#00b0ff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <line x1="18" y1="20" x2="18" y2="10"></line>
+                    <line x1="12" y1="20" x2="12" y2="4"></line>
+                    <line x1="6" y1="20" x2="6" y2="14"></line>
+                </svg>
+                <h3>Industrial Energy Audits</h3>
+                <p>Deploying advanced deep-dive logging infrastructure across your machinery layout to spot power leaks, structural harmonic distortions, and baseline operational balance gaps.</p>
+            </div>
+            <div class="card">
+                <!-- Icon: Peak Shaving -->
+                <svg class="card-icon" width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="#00e676" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M22 12h-4l-3 9L9 3l-3 9H2"></path>
+                </svg>
+                <h3>OpEx Peak Shaving</h3>
+                <p>Introducing automated load mitigation maps that shield your operation from steep governmental Time-of-Day (ToD) peak-hour billing markups.</p>
+            </div>
+            <div class="card">
+                <!-- Icon: Infrastructure -->
+                <svg class="card-icon" width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="#00e676" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <polygon points="12 2 2 7 12 12 22 7 12 2"></polygon>
+                    <polyline points="2 17 12 22 22 17"></polyline>
+                    <polyline points="2 12 12 17 22 12"></polyline>
+                </svg>
+                <h3>Captive Infrastructure</h3>
+                <p>Turnkey, asset-grade industrial solar micro-grids and battery arrays designed to generate highly predictable, completely carbon-free power right at the point of consumption.</p>
+            </div>
+        </div>
+
+        <div class="table-container">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Billing Component</th>
+                        <th>Standard Government Grid Risk Tier</th>
+                        <th>The Raynet Strategy Yield</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>Base Unit Charge</strong></td>
+                        <td>₹8.25 - ₹9.38 / kWh base tier</td>
+                        <td class="highlight-text">Reduced to ₹0.00 for on-site solar yield</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Peak Surcharges</strong></td>
+                        <td>+25% fee overhead during grid spikes</td>
+                        <td class="highlight-text">Battery & Solar buffering isolates grid load</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Fixed Demand Penalty</strong></td>
+                        <td>Up to ₹608 per kVA capacity floor monthly</td>
+                        <td class="highlight-text">Saves up to 40% via peak-load redistribution</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </section>
+
+    <section id="tariffs" style="background: rgba(255,255,255,0.01);">
+        <h2 class="section-title">20-Year Tamil Nadu Industrial Tariff Trend</h2>
+        <p class="section-subtitle">Historical proof showing why continued reliance on state grid utility structures introduces critical compounding financial risk to manufacturing margins.</p>
+        
+        <div class="timeline">
+            <div class="timeline-container left">
+                <div class="timeline-content">
+                    <span class="time-tag">2005 - 2010</span>
+                    <p>Subsidized baseline era supporting early industrial expansion. Base unit costs hovered securely around ₹3.50 – ₹4.00 per unit.</p>
+                </div>
+            </div>
+            <div class="timeline-container right">
+                <div class="timeline-content">
+                    <span class="time-tag">2012 Structure</span>
+                    <p>Massive grid deficit corrections forcing an immediate jump to ₹5.00+ rates alongside escalating demand penalties.</p>
+                </div>
+            </div>
+            <div class="timeline-container left">
+                <div class="timeline-content">
+                    <span class="time-tag">2017 - 2022</span>
+                    <p>Inflation indexes pushed baseline operations to ₹7.50 per unit while demand floor penalties surged over 300% to support central grid losses.</p>
+                </div>
+            </div>
+            <div class="timeline-container right">
+                <div class="timeline-content">
+                    <span class="time-tag">2026 Active Rate</span>
+                    <p>Official implementation of CPI-indexed annual automatic rate hikes. Baseline base sits between ₹8.10 - ₹8.50+ per unit with fixed monthly load metrics escalating up to ₹440-₹608 per kVA.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="contact">
+        <div class="contact-box">
+            <!-- Security Check SVG badge -->
+            <svg style="margin-bottom: 1rem;" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="#00e676" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
+            </svg>
+            <h2 style="font-size: 2rem; margin-bottom: 1rem;">Begin Your Facility Analysis</h2>
+            <p style="color: var(--text-muted); font-size: 0.95rem; margin-bottom: 1.5rem;">Connect directly with our engineering division to map your specific electrical architecture against current state tariff curves.</p>
+            <a href="tel:+919986117629" class="phone-link">+91 99861 17629</a>
+            <a href="mailto:sales@raynetrenewables.com" class="email-link">sales@raynetrenewables.com</a>
+        </div>
+    </section>
+
+</body>
+</html>
